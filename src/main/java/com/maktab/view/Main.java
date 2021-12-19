@@ -35,6 +35,12 @@ public class Main {
     }
 
     private static void showTicketsList() {
+        System.out.println("enter origin city :");
+        String origin=scanner.next();
+        System.out.println("enter destination city :");
+        String destination= scanner.next();
+        System.out.println("enter date yy-mm-dd :");
+        String date=scanner.next();
         UserService userService=new UserService();
         userService.getTicketInfo();
 
