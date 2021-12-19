@@ -1,5 +1,7 @@
 package com.maktab.models;
 
+import com.maktab.exceptions.InvalidDateFormat;
+
 public class MyDate {
     private int year;
     private int month;
@@ -35,10 +37,10 @@ public class MyDate {
             } else if (month == 12 && day > 0 && day <= 29) {
                 return true;
             } else {
-                return false;
+                throw new InvalidDateFormat("date format is invalid !");
             }
         }
-        return false;
+        throw new InvalidDateFormat("date format is invalid !");
     }
 
     @Override

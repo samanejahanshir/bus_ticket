@@ -2,14 +2,15 @@ package com.maktab.models;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
+    private int id;
     private String origin;
     private String destination;
-    private Date date;
+    private String date;
     private long price;
     @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
@@ -38,11 +39,11 @@ public class Ticket {
         this.destination = destination;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
