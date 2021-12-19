@@ -1,6 +1,7 @@
 package com.maktab.view;
 
 import com.maktab.service.ManagerService;
+import com.maktab.service.UserService;
 
 import java.util.Scanner;
 
@@ -34,7 +35,8 @@ public class Main {
     }
 
     private static void showTicketsList() {
-
+        UserService userService=new UserService();
+        userService.getTicketInfo();
 
     }
 
