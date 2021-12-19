@@ -15,7 +15,10 @@ public class ManagerDao extends AccessDao {
         query.setParameter("userName",userName);
         query.setParameter("password",password);
         List<Manager> managers=query.list();
-        return managers.get(0);
+        if(!managers.isEmpty()){
+            return managers.get(0);
+        }
+        return  null;
     }
 
 }

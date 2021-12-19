@@ -77,6 +77,7 @@ public class Main {
         String password = scanner.next();
         ManagerService managerService = new ManagerService();
         if (managerService.signInManager(userName, password)) {
+            System.out.println("you entered successfully.");
             managerService.getMenuManager();
         } else {
             System.out.println("userName or password is invalid !");
