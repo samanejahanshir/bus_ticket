@@ -10,11 +10,14 @@ public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
+    @Enumerated(EnumType.STRING)
     private BusType type;
     private String company;
     private int countChair;
     @ElementCollection
-    private Map<Integer,StateChair> chairMap=new HashMap<>();
+    @MapKeyColumn(name = "chair_number")
+    @Column(name = "Status")
+    private Map<Integer,String> chairMap=new HashMap<>();
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "bus")
     private List<Ticket> tickets=new ArrayList<>();
 
@@ -50,11 +53,11 @@ public class Bus {
         this.countChair = countChair;
     }
 
-    public Map<Integer, StateChair> getChairMap() {
+    public Map<Integer, String> getChairMap() {
         return chairMap;
     }
 
-    public void setChairMap(Map<Integer, StateChair> chairMap) {
+    public void setChairMap(Map<Integer, String> chairMap) {
         this.chairMap = chairMap;
     }
 
@@ -73,7 +76,6 @@ public class Bus {
                 ", type=" + type +
                 ", company='" + company + '\'' +
                 ", countChair=" + countChair +
-                ", chairMap=" + chairMap +
                 ", tickets=" + tickets +
                 '}';
     }

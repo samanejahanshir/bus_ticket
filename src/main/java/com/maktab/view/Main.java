@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("---------- Welcome ----------");
         outer:
-        try {
-            while (true) {
+        while (true) {
+            try {
                 System.out.println("1.sign in\n2.sale ticket\n3.exit");
                 switch (scanner.nextInt()) {
                     case 1:
@@ -29,10 +29,9 @@ public class Main {
                     default:
                         throw new RuntimeException("enter 1-3 please !");
                 }
-
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -44,11 +43,10 @@ public class Main {
             System.out.println("enter destination city :");
             String destination = scanner.next();
             System.out.println("do you enter date? y/n");
-            String enterDate=scanner.next();
-            if(enterDate.equalsIgnoreCase("y")) {
+            String enterDate = scanner.next();
+            if (enterDate.equalsIgnoreCase("y")) {
                 System.out.println("enter date yy-mm-dd :");
                 date = scanner.next();
-
             }
             checkValidation(date);
             System.out.println("enter count of result in per page :");
@@ -59,7 +57,6 @@ public class Main {
             System.out.println(exp.getMessage());
             scanner.nextLine();
         }
-
     }
 
     private static void checkValidation(String date) {
@@ -78,10 +75,28 @@ public class Main {
         ManagerService managerService = new ManagerService();
         if (managerService.signInManager(userName, password)) {
             System.out.println("you entered successfully.");
-            managerService.getMenuManager();
+            managerShowMenu();
         } else {
             System.out.println("userName or password is invalid !");
         }
 
+    }
+
+    private static void managerShowMenu() {
+        ManagerService managerService = new ManagerService();
+        try {
+            System.out.println("1.show report travels\n2.exit");
+            switch (scanner.nextInt()) {
+                case 1:
+                    managerService.getReportOfTravels();
+                    break;
+                case 2:
+                    break;
+                default:
+                    throw new NumberFormatException("enter 1 or 2 please !");
+            }
+        } catch (NumberFormatException | InputMismatchException exp) {
+            System.out.println(exp.getMessage());
+        }
     }
 }

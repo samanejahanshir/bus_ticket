@@ -11,9 +11,12 @@ public class Ticket {
     private String origin;
     private String destination;
     private String date;
+    private String time;
     private long price;
     @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
+    @OneToOne
+    private User user;
 
     public int getId() {
         return id;
@@ -61,6 +64,22 @@ public class Ticket {
 
     public void setBus(Bus bus) {
         this.bus = bus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Override
