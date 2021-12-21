@@ -14,15 +14,24 @@ public class Bus {
     private BusType type;
     private String company;
     private int countChair;
-    @ElementCollection
+    private  int chairReminding;
+   /* @ElementCollection
     @MapKeyColumn(name = "chair_number")
     @Column(name = "Status")
-    private Map<Integer,String> chairMap=new HashMap<>();
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bus")
+    private Map<Integer,String> chairMap=new HashMap<>();*/
+    @OneToMany(mappedBy = "bus")
     private List<Ticket> tickets=new ArrayList<>();
 
     public int getId() {
         return id;
+    }
+
+    public int getChairReminding() {
+        return chairReminding;
+    }
+
+    public void setChairReminding(int chairReminding) {
+        this.chairReminding = chairReminding;
     }
 
     public void setId(int id) {
@@ -53,14 +62,14 @@ public class Bus {
         this.countChair = countChair;
     }
 
-    public Map<Integer, String> getChairMap() {
+  /*  public Map<Integer, String> getChairMap() {
         return chairMap;
     }
 
     public void setChairMap(Map<Integer, String> chairMap) {
         this.chairMap = chairMap;
     }
-
+*/
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -76,7 +85,6 @@ public class Bus {
                 ", type=" + type +
                 ", company='" + company + '\'' +
                 ", countChair=" + countChair +
-                ", tickets=" + tickets +
                 '}';
     }
 }

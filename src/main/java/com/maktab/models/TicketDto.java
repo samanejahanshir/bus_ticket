@@ -6,7 +6,7 @@ public class TicketDto {
     private String date;
     private String time;
     private long price;
-    private  int count;
+    private  int chairReminding;
 
     public String getCompanyName() {
         return companyName;
@@ -48,12 +48,12 @@ public class TicketDto {
         this.price = price;
     }
 
-    public int getCount() {
-        return count;
+    public int getChairReminding() {
+        return chairReminding;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setChairReminding(int chairReminding) {
+        this.chairReminding = chairReminding;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TicketDto {
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", price=" + price +
-                ", count=" + count +
+                ", count=" + chairReminding +
                 '}';
     }
 }

@@ -13,10 +13,21 @@ public class Ticket {
     private String date;
     private String time;
     private long price;
+    @Enumerated(EnumType.STRING)
+    private StatusTicket statusTicket;
+    private int seatNumber;
     @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
-    @OneToOne
-    private User user;
+   /* @OneToOne
+    private User user;*/
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(int seatNumber) {
+        this.seatNumber = seatNumber;
+    }
 
     public int getId() {
         return id;
@@ -66,13 +77,20 @@ public class Ticket {
         this.bus = bus;
     }
 
-    public User getUser() {
+    public StatusTicket getStatusTicket() {
+        return statusTicket;
+    }
+
+    public void setStatusTicket(StatusTicket statusTicket) {
+        this.statusTicket = statusTicket;
+    }
+    /*  public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
+    }*/
 
     public String getTime() {
         return time;
@@ -93,4 +111,5 @@ public class Ticket {
                 ", bus=" + bus +
                 '}';
     }
+
 }
