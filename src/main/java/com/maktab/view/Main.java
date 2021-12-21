@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-
+static int countOfPrint=3;
     public static void main(String[] args) {
         System.out.println("---------- Welcome ----------");
         outer:
@@ -59,15 +59,15 @@ public class Main {
             System.out.println("enter count of result:");
             int countResult = scanner.nextInt();
             UserService userService = new UserService();
-            List<TicketDto> ticketList = userService.getTicketInfo(origin, destination, date);
-            if (ticketList.size() <= countResult) {
+            List<TicketDto> ticketList = userService.getTicketInfo(origin, destination, date,countResult);
+            if (ticketList.size() <= countOfPrint) {
                 ticketList.forEach(System.out::println);
             } else {
                 int i = 0;
                 int page = 1;
                 outer:
                 while (true) {
-                    i = printListTickets(countResult, ticketList, i);
+                    i = printListTickets(ticketList, i);
                     if (page > 1) {
                         System.out.println("1.previous page");
                     }
@@ -79,11 +79,11 @@ public class Main {
                         case 1:
                             if (i > countResult) {
                                 i -= countResult;
-                                printListTickets(countResult, ticketList, i);
+                                printListTickets(ticketList, i);
                             }
                             break;
                         case 2:
-                            printListTickets(countResult, ticketList, i);
+                            printListTickets(ticketList, i);
                             break;
                         case 0:
                             break outer;
@@ -149,11 +149,17 @@ public class Main {
         }
     }
 
-    private static int printListTickets(int countResult, List<TicketDto> ticketDtoList, int i) {
-        for (int j = i; j < countResult + i; j++) {
-            System.out.println(ticketDtoList.get(j));
+    private static int printListTickets( List<TicketDto> ticketDtoList, int i) {
+        if(i+countOfPrint<ticketDtoList.size()) {
+            for (int j = i; j < countOfPrint + i; j++) {
+                System.out.println(ticketDtoList.get(j));
+            }
+        }else {
+            for (int j = i; j < (countOfPrint + i)-ticketDtoList.size(); j++) {
+                System.out.println(ticketDtoList.get(j));
+            }
         }
-        i += countResult;
+        i += countOfPrint;
         return i;
     }
 
