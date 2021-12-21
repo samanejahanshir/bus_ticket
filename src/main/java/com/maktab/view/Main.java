@@ -56,20 +56,10 @@ public class Main {
                 date = scanner.next();
             }
             checkValidation(date);
-            System.out.println("enter count of result in per page :");
+            System.out.println("enter count of result:");
             int countResult = scanner.nextInt();
             UserService userService = new UserService();
-           /* Session session= AccessDao.sessionFactory.openSession();
-            Transaction transaction=session.beginTransaction();
-            Query<Ticket> query=  session.createQuery("from Ticket  where origin=:origin and destination=:destination ",Ticket.class);
-            query.setParameter("origin", origin);
-            query.setParameter("destination", destination);
-
-           List<Ticket> tickets=query.list();
-            System.out.println(tickets.get(0));
-            transaction.commit();
-            session.close();*/
-            List<Ticket> ticketList = userService.getTicketInfo(origin, destination, date);
+            List<TicketDto> ticketList = userService.getTicketInfo(origin, destination, date);
             if (ticketList.size() <= countResult) {
                 ticketList.forEach(System.out::println);
             } else {
@@ -159,7 +149,7 @@ public class Main {
         }
     }
 
-    private static int printListTickets(int countResult, List<Ticket> ticketDtoList, int i) {
+    private static int printListTickets(int countResult, List<TicketDto> ticketDtoList, int i) {
         for (int j = i; j < countResult + i; j++) {
             System.out.println(ticketDtoList.get(j));
         }

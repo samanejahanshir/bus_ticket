@@ -16,7 +16,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private StatusTicket statusTicket;
     private int seatNumber;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Bus bus;
    /* @OneToOne
     private User user;*/

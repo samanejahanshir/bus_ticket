@@ -22,8 +22,9 @@ public class ManagerService {
     }
     public void saveBus(){
         Bus bus=new Bus();
-        bus.setCompany("com1");
+        bus.setCompany("company1");
         bus.setCountChair(5);
+        bus.setChairReminding(5);
         bus.setType(BusType.VIP);
         for(int i=0;i<5;i++){
             Ticket ticket=new Ticket();
@@ -32,6 +33,7 @@ public class ManagerService {
             ticket.setOrigin("semnan");
             ticket.setTime("10:00");
             ticket.setSeatNumber(i+1);
+            ticket.setPrice(2000);
             ticket.setStatusTicket(StatusTicket.NOT_SALE);
             ticket.setBus(bus);
             bus.getTickets().add(ticket);

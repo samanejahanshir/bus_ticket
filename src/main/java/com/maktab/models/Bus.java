@@ -19,7 +19,7 @@ public class Bus {
     @MapKeyColumn(name = "chair_number")
     @Column(name = "Status")
     private Map<Integer,String> chairMap=new HashMap<>();*/
-    @OneToMany(mappedBy = "bus")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bus")
     private List<Ticket> tickets=new ArrayList<>();
 
     public int getId() {

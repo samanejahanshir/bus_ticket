@@ -2,7 +2,7 @@ package com.maktab.models;
 
 public class TicketDto {
     private  String companyName;
-    private  String busType;
+    private  BusType busType;
     private String date;
     private String time;
     private long price;
@@ -16,11 +16,11 @@ public class TicketDto {
         this.companyName = companyName;
     }
 
-    public String getBusType() {
+    public BusType getBusType() {
         return busType;
     }
 
-    public void setBusType(String busType) {
+    public void setBusType(BusType busType) {
         this.busType = busType;
     }
 
@@ -64,7 +64,7 @@ public class TicketDto {
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", price=" + price +
-                ", count=" + chairReminding +
+                ", chairReminding=" + chairReminding +
                 '}';
     }
 }
