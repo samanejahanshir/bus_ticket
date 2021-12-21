@@ -1,15 +1,11 @@
 package com.maktab.view;
 
-import com.maktab.dao.AccessDao;
 import com.maktab.exceptions.InvalidDateFormat;
 import com.maktab.models.MyDate;
 import com.maktab.models.Ticket;
 import com.maktab.models.TicketDto;
 import com.maktab.service.ManagerService;
 import com.maktab.service.UserService;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -94,7 +90,7 @@ static int countOfPrint=3;
             System.out.println("1.show detail\n2.exit");
             switch (scanner.nextInt()) {
                 case 1:
-                    showDetail();
+                    showDetail(ticketList);
                     break;
                 case 2:
                 default:
@@ -163,12 +159,15 @@ static int countOfPrint=3;
         return i;
     }
 
-    private static void showDetail() {
+    private static void showDetail(List<TicketDto> ticketDtos) {
         try {
-            System.out.println("enter id ticket :");
-            int id = scanner.nextInt();
+            System.out.println("enter row number of ticket :");
+            int rowNumber = scanner.nextInt();
             UserService userService = new UserService();
-            userService.showDetail(id);
+            List<Ticket> tickets=userService.showDetail(rowNumber,ticketDtos);
+            for (Ticket ticket : tickets) {
+                System.out.println(ticket);
+            }
             System.out.println("1.sale\n2.exit");
             switch (scanner.nextInt()){
                 case 1:

@@ -1,12 +1,30 @@
 package com.maktab.models;
 
 public class TicketDto {
+    private  String origin;
+    private  String destination;
     private  String companyName;
     private  BusType busType;
     private String date;
     private String time;
     private long price;
     private  int chairReminding;
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 
     public String getCompanyName() {
         return companyName;

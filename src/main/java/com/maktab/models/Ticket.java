@@ -106,10 +106,12 @@ public class Ticket {
                 "id=" + id +
                 ", origin='" + origin + '\'' +
                 ", destination='" + destination + '\'' +
-                ", date=" + date +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
                 ", price=" + price +
+                ", statusTicket=" + statusTicket +
+                ", seatNumber=" + seatNumber +
                 ", bus=" + bus +
                 '}';
     }
-
 }
