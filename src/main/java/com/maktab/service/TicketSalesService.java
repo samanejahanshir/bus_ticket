@@ -1,5 +1,7 @@
 package com.maktab.service;
 
+import com.maktab.dao.TicketDao;
+import com.maktab.models.Ticket;
 import com.maktab.models.TicketDto;
 
 import java.text.ParseException;
@@ -45,5 +47,10 @@ public class TicketSalesService {
         List<TicketDto> list = ticketDtos.stream().filter(ticketDto -> ticketDto.getPrice() > minPrice && ticketDto.getPrice() < maxPrice)
                 .collect(Collectors.toList());
       return list;
+    }
+
+    public  void updateTicketsForSale(List<Ticket> tickets){
+        TicketDao ticketDao=new TicketDao();
+        ticketDao.updateTicketForSale(tickets);
     }
 }

@@ -11,7 +11,6 @@ import org.hibernate.criterion.SimpleExpression;
 import org.hibernate.transform.Transformers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TicketDao extends AccessDao {
@@ -25,7 +24,7 @@ public class TicketDao extends AccessDao {
         SimpleExpression eqOrigin = Restrictions.eq("ticket.origin", origin);
         SimpleExpression eqDestination = Restrictions.eq("ticket.destination", destination);
         criteria.add(Restrictions.and(eqDestination, eqOrigin));
-        if (date != null) {
+        if (date != null && !date.equals("")) {
             criteria.add(Restrictions.and(Restrictions.eq("ticket.date", date)));
         }
 
@@ -68,8 +67,14 @@ public class TicketDao extends AccessDao {
         return tickets;
     }
 
-    public int updateTicketForSale(Ticket ticket) {
+    public void updateTicketForSale(List<Ticket> ticket) {
         //TODO
-        return 0;
+        Session session=sessionFactory.openSession();
+        Transaction transaction=session.beginTransaction();
+        for (Ticket ticket1 : ticket) {
+            session.update(ticket1);
+        }
+        transaction.commit();
+        session.close();
     }
 }
