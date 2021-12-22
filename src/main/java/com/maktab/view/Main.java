@@ -2,16 +2,11 @@ package com.maktab.view;
 
 import com.maktab.exceptions.InvalidDateFormat;
 import com.maktab.exceptions.InvalidInputException;
-import com.maktab.models.MyDate;
-import com.maktab.models.StatusTicket;
-import com.maktab.models.Ticket;
-import com.maktab.models.TicketDto;
+import com.maktab.models.*;
 import com.maktab.service.ManagerService;
 import com.maktab.service.TicketSalesService;
 import com.maktab.service.UserService;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,23 +92,29 @@ public class Main {
 
                 }
             }
-            System.out.println("1.show detail\n2.filtering result\n3.exit");
-            switch (scanner.nextInt()) {
-                case 1:
-                    showDetail(ticketList);
-                    break;
-                case 2:
-                    filteringResult(ticketList);
-                    break;
-                case 3:
-                    break;
-                default:
-                    throw new NumberFormatException("enter 1 or 2 ");
+            outer:
+            while (true) {
+                System.out.println("1.show detail\n2.filtering result\n3.exit");
+                switch (scanner.nextInt()) {
+                    case 1:
+                        showDetail(ticketList);
+                        break;
+                    case 2:
+                        filteringResult(ticketList);
+                        break;
+                    case 3:
+                        break outer;
+                    default:
+                        throw new NumberFormatException("enter 1 or 2 ");
+                }
             }
-        } catch (InvalidDateFormat | InputMismatchException | NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException exp) {
+        } catch
+        (InvalidDateFormat | InputMismatchException | NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException
+                        exp) {
             System.out.println(exp.getMessage());
             scanner.nextLine();
         }
+
     }
 
     private static void filteringResult(List<TicketDto> ticketDtos) {
@@ -129,10 +130,10 @@ public class Main {
                         filterByBusType(ticketDtos);
                         break;
                     case 3:
-                        filterByTimes(ticketDtos);
+                        filterByPrice(ticketDtos);
                         break;
                     case 4:
-                        filterByPrice(ticketDtos);
+                        filterByTimes(ticketDtos);
                         break;
                     case 5:
                         break outer;
@@ -171,8 +172,9 @@ public class Main {
     }
 
     private static void filterByTimes(List<TicketDto> ticketDtos) throws ParseException {
-        System.out.println("enter min times :");
+        System.out.println("enter min times : 00:00");
         String minTime = scanner.next();
+        System.out.println("enter max times : 00:00");
         String maxTime = scanner.next();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         Date minDate = sdf.parse(minTime);
@@ -282,13 +284,45 @@ public class Main {
     }
 
     private static void saleTicket(List<Ticket> tickets) {
+        UserService userService = new UserService();
+        TicketSalesService ticketSalesService = new TicketSalesService();
         System.out.println("enter number of ticket:");
         int countTicket = scanner.nextInt();
         if (tickets.stream().filter(ticket -> ticket.getStatusTicket().equals(StatusTicket.NOT_SALE)).count() >= countTicket) {
+            List<Ticket> ticketsNoSale = tickets.stream().filter(ticket -> ticket.getStatusTicket().equals(StatusTicket.NOT_SALE)).collect(Collectors.toList());
             for (int i = 0; i < countTicket; i++) {
-
+                System.out.println("enter first name:");
+                String firstName = scanner.next();
+                System.out.println("enter last name:");
+                String lastName = scanner.next();
+                System.out.println("enter national code:");
+                String nationalCode = scanner.next();
+                System.out.println("enter mobile:");
+                String mobile = scanner.next();
+                System.out.println("enter age:");
+                int age = scanner.nextInt();
+                System.out.println("enter gender: 1.male  2.female");
+                int gender = scanner.nextInt();
+                User user = new User();
+                user.setAge(age);
+                user.setFamily(lastName);
+                user.setName(firstName);
+                user.setMobile(mobile);
+                if (gender == 1) {
+                    user.setGender(Gender.MALE);
+                } else {
+                    user.setGender(Gender.FEMALE);
+                }
+                user.setNationalCode(nationalCode);
+                userService.saveUser(user);
+                ticketsNoSale.get(i).setUser(user);
+                ticketsNoSale.get(i).setStatusTicket(StatusTicket.SALE);
             }
+            ticketSalesService.updateTicketsForSale(ticketsNoSale);
+            System.out.println("");
+            ticketsNoSale.forEach(System.out::println);
+        } else {
+            System.out.println("sorry : this amount of tickets is not available .");
         }
-
     }
 }

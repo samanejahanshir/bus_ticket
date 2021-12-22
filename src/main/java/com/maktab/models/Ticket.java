@@ -85,13 +85,13 @@ public class Ticket {
     public void setStatusTicket(StatusTicket statusTicket) {
         this.statusTicket = statusTicket;
     }
-    /*  public User getUser() {
+      public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }*/
+    }
 
     public String getTime() {
         return time;
@@ -113,6 +113,7 @@ public class Ticket {
                 ", statusTicket=" + statusTicket +
                 ", seatNumber=" + seatNumber +
                 ", bus=" + bus +
+                ", user=" + user +
                 '}';
     }
 }
