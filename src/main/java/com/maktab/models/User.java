@@ -13,6 +13,15 @@ public class  User {
     private  String nationalCode;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    private String mobile;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public int getId() {
         return id;
@@ -71,6 +80,7 @@ public class  User {
                 ", age=" + age +
                 ", nationalCode='" + nationalCode + '\'' +
                 ", gender=" + gender +
+                ", mobile='" + mobile + '\'' +
                 '}';
     }
 }
