@@ -1,6 +1,7 @@
 package com.maktab.models;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -18,8 +19,8 @@ public class Ticket {
     private int seatNumber;
     @ManyToOne
     private Bus bus;
-   /* @OneToOne
-    private User user;*/
+    @OneToOne
+    private User user;
 
     public int getSeatNumber() {
         return seatNumber;

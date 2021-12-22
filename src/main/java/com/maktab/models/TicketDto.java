@@ -1,5 +1,7 @@
 package com.maktab.models;
 
+import java.util.Date;
+
 public class TicketDto {
     private  String origin;
     private  String destination;

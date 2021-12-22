@@ -7,6 +7,10 @@ import com.maktab.models.BusType;
 import com.maktab.models.StatusTicket;
 import com.maktab.models.Ticket;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 public class ManagerService {
 
     public boolean signInManager(String userName, String password) {
@@ -28,7 +32,7 @@ public class ManagerService {
         bus.setType(BusType.VIP);
         for(int i=0;i<5;i++){
             Ticket ticket=new Ticket();
-            ticket.setDate("99-9-9");
+            ticket.setDate("99-09-09");
             ticket.setDestination("tehran");
             ticket.setOrigin("semnan");
             ticket.setTime("10:00");
