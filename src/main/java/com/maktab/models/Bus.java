@@ -2,25 +2,24 @@ package com.maktab.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 @Entity
 public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
+    private int id;
     @Enumerated(EnumType.STRING)
     private BusType type;
     private String company;
     private int countChair;
-    private  int chairReminding;
-   /* @ElementCollection
-    @MapKeyColumn(name = "chair_number")
-    @Column(name = "Status")
-    private Map<Integer,String> chairMap=new HashMap<>();*/
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "bus")
-    private List<Ticket> tickets=new ArrayList<>();
+    private int chairReminding;
+    /* @ElementCollection
+     @MapKeyColumn(name = "chair_number")
+     @Column(name = "Status")
+     private Map<Integer,String> chairMap=new HashMap<>();*/
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bus")
+    private List<Ticket> tickets = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -62,14 +61,14 @@ public class Bus {
         this.countChair = countChair;
     }
 
-  /*  public Map<Integer, String> getChairMap() {
-        return chairMap;
-    }
+    /*  public Map<Integer, String> getChairMap() {
+          return chairMap;
+      }
 
-    public void setChairMap(Map<Integer, String> chairMap) {
-        this.chairMap = chairMap;
-    }
-*/
+      public void setChairMap(Map<Integer, String> chairMap) {
+          this.chairMap = chairMap;
+      }
+  */
     public List<Ticket> getTickets() {
         return tickets;
     }

@@ -6,8 +6,6 @@ import com.maktab.models.Ticket;
 import com.maktab.models.TicketDto;
 import com.maktab.models.User;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public class UserService {
@@ -22,8 +20,9 @@ public class UserService {
         return ticketDao.getDetailsOfTicket(ticketDtos.get(rowNumber - 1));
 
     }
-    public void saveUser(User user){
-        UserDao userDao=new UserDao();
+
+    public void saveUser(User user) {
+        UserDao userDao = new UserDao();
         userDao.saveUser(user);
     }
 }

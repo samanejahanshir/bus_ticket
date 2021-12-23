@@ -1,16 +1,14 @@
 package com.maktab.models;
 
-import java.util.Date;
-
 public class TicketDto {
-    private  String origin;
-    private  String destination;
-    private  String companyName;
-    private  BusType busType;
+    private String origin;
+    private String destination;
+    private String companyName;
+    private BusType busType;
     private String date;
     private String time;
     private long price;
-    private  int chairReminding;
+    private int chairReminding;
 
     public String getOrigin() {
         return origin;

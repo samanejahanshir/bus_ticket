@@ -4,9 +4,6 @@ import com.maktab.dao.BusDao;
 import com.maktab.dao.ManagerDao;
 import com.maktab.models.*;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class ManagerService {
@@ -21,7 +18,7 @@ public class ManagerService {
 
     public List<BusDto> getReportOfTravels() {
         BusDao busDao = new BusDao();
-       return busDao.getDetailsOfBus();
+        return busDao.getDetailsOfBus();
     }
 
     public void saveBus() {

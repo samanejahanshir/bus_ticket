@@ -69,8 +69,8 @@ public class TicketDao extends AccessDao {
 
     public void updateTicketForSale(List<Ticket> ticket) {
         //TODO
-        Session session=sessionFactory.openSession();
-        Transaction transaction=session.beginTransaction();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
         for (Ticket ticket1 : ticket) {
             session.update(ticket1);
         }

@@ -1,8 +1,6 @@
 package com.maktab.models;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
 
 @Entity
 public class Ticket {
@@ -85,7 +83,8 @@ public class Ticket {
     public void setStatusTicket(StatusTicket statusTicket) {
         this.statusTicket = statusTicket;
     }
-      public User getUser() {
+
+    public User getUser() {
         return user;
     }
 
