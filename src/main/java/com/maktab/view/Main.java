@@ -1,5 +1,6 @@
 package com.maktab.view;
 
+import com.maktab.dao.BusDao;
 import com.maktab.exceptions.InvalidDateFormat;
 import com.maktab.exceptions.InvalidInputException;
 import com.maktab.models.*;
@@ -177,8 +178,6 @@ public class Main {
         System.out.println("enter max times : 00:00");
         String maxTime = scanner.next();
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-        Date minDate = sdf.parse(minTime);
-        Date maxDate = sdf.parse(maxTime);
         TicketSalesService ticketService = new TicketSalesService();
         List<TicketDto> list = ticketService.filterByTimes(ticketDtos, minTime, maxTime);
         if (list.isEmpty()) {
@@ -219,7 +218,7 @@ public class Main {
         ManagerService managerService = new ManagerService();
 
         if (managerService.signInManager(userName, password)) {
-            managerService.saveBus();
+            // managerService.saveBus();
             System.out.println("you entered successfully.");
             managerShowMenu();
         } else {
@@ -234,7 +233,7 @@ public class Main {
             System.out.println("1.show report travels\n2.exit");
             switch (scanner.nextInt()) {
                 case 1:
-                    managerService.getReportOfTravels();
+                    managerService.getReportOfTravels().forEach(System.out::println);
                     break;
                 case 2:
                     break;
@@ -286,6 +285,7 @@ public class Main {
     private static void saleTicket(List<Ticket> tickets) {
         UserService userService = new UserService();
         TicketSalesService ticketSalesService = new TicketSalesService();
+        BusDao busDao = new BusDao();
         System.out.println("enter number of ticket:");
         int countTicket = scanner.nextInt();
         if (tickets.stream().filter(ticket -> ticket.getStatusTicket().equals(StatusTicket.NOT_SALE)).count() >= countTicket) {
@@ -317,10 +317,13 @@ public class Main {
                 userService.saveUser(user);
                 ticketsNoSale.get(i).setUser(user);
                 ticketsNoSale.get(i).setStatusTicket(StatusTicket.SALE);
+                ticketsNoSale.get(i).getBus().setChairReminding(ticketsNoSale.get(i).getBus().getChairReminding() - countTicket);
+                busDao.updateBusChairReminding(ticketsNoSale.get(i).getBus());
             }
+
             ticketSalesService.updateTicketsForSale(ticketsNoSale);
             System.out.println("");
-            ticketsNoSale.forEach(System.out::println);
+            ticketsNoSale.stream().filter(ticket -> ticket.getStatusTicket().equals(StatusTicket.SALE)).forEach(System.out::println);
         } else {
             System.out.println("sorry : this amount of tickets is not available .");
         }
