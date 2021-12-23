@@ -112,7 +112,20 @@ public class Ticket {
                 ", statusTicket=" + statusTicket +
                 ", seatNumber=" + seatNumber +
                 ", bus=" + bus +
-                ", user=" + user +
+                '}';
+    }
+    public String printDetail(){
+        return "Ticket{" +
+                "id=" + id +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", price=" + price +
+                ", statusTicket=" + statusTicket +
+                ", seatNumber=" + seatNumber +
+                ", bus=" + bus +
+                ", bus=" + user +
                 '}';
     }
 }

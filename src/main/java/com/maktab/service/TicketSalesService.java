@@ -53,4 +53,19 @@ public class TicketSalesService {
         TicketDao ticketDao = new TicketDao();
         ticketDao.updateTicketForSale(tickets);
     }
+    public List<TicketDto> filterListTicketDto(List<TicketDto> ticketDtos,String companyName,String type,String minTime,String maxTime,long minPrice,long maxPrice) throws ParseException {
+        if(companyName!=null && !companyName.equals("")){
+            ticketDtos=filterByCompany(ticketDtos,companyName);
+        }
+        if(type!=null && !type.equals("")){
+           ticketDtos=filterByBusType(ticketDtos,type);
+        }
+        if(minTime !=null && !minTime.equals("") && maxTime!=null && !maxTime.equals("")){
+            ticketDtos=filterByTimes(ticketDtos,minTime,maxTime);
+        }
+        if(minPrice!=0 && maxPrice!=0){
+            ticketDtos=filterByPrice(ticketDtos,minPrice,maxPrice);
+        }
+        return ticketDtos;
+    }
 }
