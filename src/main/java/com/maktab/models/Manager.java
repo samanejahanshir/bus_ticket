@@ -9,9 +9,9 @@ import javax.persistence.Id;
 public class Manager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
-    private  String userName;
-    private  String password;
+    private int id;
+    private String userName;
+    private String password;
 
     public int getId() {
         return id;

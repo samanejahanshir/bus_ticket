@@ -3,14 +3,14 @@ package com.maktab.models;
 import javax.persistence.*;
 
 @Entity
-public class  User {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String family;
     private int age;
-    private  String nationalCode;
+    private String nationalCode;
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String mobile;

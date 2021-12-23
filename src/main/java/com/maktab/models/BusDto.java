@@ -2,10 +2,10 @@ package com.maktab.models;
 
 public class BusDto {
     private long ticketSale;
-    private  String companyName;
+    private String companyName;
     private int chairReminding;
     private BusType type;
-    private  String date;
+    private String date;
 
     public long getTicketSale() {
         return ticketSale;

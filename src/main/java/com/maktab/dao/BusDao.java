@@ -1,10 +1,14 @@
 package com.maktab.dao;
 
-import com.maktab.models.*;
+import com.maktab.models.Bus;
+import com.maktab.models.BusDto;
+import com.maktab.models.StatusTicket;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.*;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
 import java.util.ArrayList;
@@ -27,23 +31,12 @@ public class BusDao extends AccessDao {
         criteria.createAlias("bus.tickets", "ticket");
         criteria.add(Restrictions.eq("ticket.statusTicket", StatusTicket.SALE));
         criteria.addOrder(Order.desc("ticket.date"));
-       /* criteria.setProjection(Projections.projectionList().add(Projections.groupProperty("bus.type"))
-                .add(Projections.count("ticket.statusTicket").as("ticketSale"))
-                        .add(Projections.property("chairReminding").as("chairReminding"))
-                );
-        criteria.setResultTransformer(Transformers.aliasToBean(BusDto.class));*/
-/*criteria.setProjection( Projections.projectionList()
-                .add( Projections.rowCount(),"ticket.statusTicket" )
-                .add( Property.forName("bus.chairReminding").avg().as("chairReminding") )
-                .add( Property.forName("bus.type").group().as("type" )
-                ));*/
-        // criteria.addOrder(Order.asc("name"));
-        //select name,min,max,avg,rows
         criteria.setProjection(Projections.projectionList()
                 .add(Projections.groupProperty("bus.type"))
                 .add(Projections.property("bus.company"), "companyName")
                 .add(Projections.property("ticket.date"), "date")
                 .add(Projections.property("bus.chairReminding"), "chairReminding")
+                .add(Projections.property("bus.type"), "type")
                 .add(Projections.rowCount(), "ticketSale"));
         criteria.setResultTransformer(Transformers.aliasToBean(BusDto.class));
 
@@ -54,7 +47,8 @@ public class BusDao extends AccessDao {
         session.close();
         return busDtos;
     }
-    public void updateBusChairReminding(Bus bus){
+
+    public void updateBusChairReminding(Bus bus) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.update(bus);

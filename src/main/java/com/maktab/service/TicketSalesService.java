@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TicketSalesService {
-    public List<TicketDto> filterByCompany(List<TicketDto> ticketDtos,String nameCompany) {
+    public List<TicketDto> filterByCompany(List<TicketDto> ticketDtos, String nameCompany) {
         List<TicketDto> list = ticketDtos.stream().filter(ticketDto -> ticketDto.getCompanyName()
                 .equalsIgnoreCase(nameCompany)).collect(Collectors.toList());
-       return  list;
+        return list;
     }
 
-    public List<TicketDto> filterByBusType(List<TicketDto> ticketDtos,String type) {
+    public List<TicketDto> filterByBusType(List<TicketDto> ticketDtos, String type) {
         List<TicketDto> list = ticketDtos.stream().filter(ticketDto -> ticketDto.getBusType().name().equalsIgnoreCase(type))
                 .collect(Collectors.toList());
-       return list;
+        return list;
 
     }
 
@@ -40,17 +40,32 @@ public class TicketSalesService {
                     return b;
                 })
                 .collect(Collectors.toList());
-       return list;
+        return list;
     }
 
-    public List<TicketDto> filterByPrice(List<TicketDto> ticketDtos,long minPrice,long maxPrice) {
+    public List<TicketDto> filterByPrice(List<TicketDto> ticketDtos, long minPrice, long maxPrice) {
         List<TicketDto> list = ticketDtos.stream().filter(ticketDto -> ticketDto.getPrice() > minPrice && ticketDto.getPrice() < maxPrice)
                 .collect(Collectors.toList());
-      return list;
+        return list;
     }
 
-    public  void updateTicketsForSale(List<Ticket> tickets){
-        TicketDao ticketDao=new TicketDao();
+    public void updateTicketsForSale(List<Ticket> tickets) {
+        TicketDao ticketDao = new TicketDao();
         ticketDao.updateTicketForSale(tickets);
+    }
+    public List<TicketDto> filterListTicketDto(List<TicketDto> ticketDtos,String companyName,String type,String minTime,String maxTime,long minPrice,long maxPrice) throws ParseException {
+        if(companyName!=null && !companyName.equals("")){
+            ticketDtos=filterByCompany(ticketDtos,companyName);
+        }
+        if(type!=null && !type.equals("")){
+           ticketDtos=filterByBusType(ticketDtos,type);
+        }
+        if(minTime !=null && !minTime.equals("") && maxTime!=null && !maxTime.equals("")){
+            ticketDtos=filterByTimes(ticketDtos,minTime,maxTime);
+        }
+        if(minPrice!=0 && maxPrice!=0){
+            ticketDtos=filterByPrice(ticketDtos,minPrice,maxPrice);
+        }
+        return ticketDtos;
     }
 }
